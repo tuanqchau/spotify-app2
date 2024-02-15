@@ -1,8 +1,12 @@
+
+
 FROM node:18-alpine
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+# want to install dependencies first
+#COPY (para1: local package.json, para2: where we want to copy it in the container, which is the current directory)
+COPY package*.json  ./
 
 RUN npm install
 
@@ -12,9 +16,10 @@ RUN npm install
 
 COPY . .
 
-RUN npm run build
+#RUN npm run build
 
-EXPOSE 8080
+ENV PORT=3000
+EXPOSE 3000
 
 CMD [ "npm", "run", "dev" ]
 #in production CMD [ "npm", "run", "serve" ]
