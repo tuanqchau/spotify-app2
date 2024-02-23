@@ -30,9 +30,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("test")
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}
+
+@app.get("/test")
 async def test():
-    return "test"
+    return {"message": "Testing endpoint"}
+
+
 def get_token():
     auth_string = client_id + ":" + client_secret
     auth_bytes = auth_string.encode("utf-8")
